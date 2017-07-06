@@ -61,10 +61,10 @@ Plugin.prototype.apply = function(compiler) {
         var files = chunk.files.map(function(file){
           var F = {name: file};
           if (compiler.options.output.publicPath) {
-            F.publicPath = compiler.options.output.publicPath + file + self.options.forceGzip ? ".gz" : "";
+            F.publicPath = compiler.options.output.publicPath + file + (self.options.forceGzip ? ".gz" : "");
           }
           if (compiler.options.output.path) {
-            F.path = path.join(compiler.options.output.path, file + self.options.forceGzip ? ".gz" : "");
+            F.path = path.join(compiler.options.output.path, file + (self.options.forceGzip ? ".gz" : ""));
           }
           return F;
         });
