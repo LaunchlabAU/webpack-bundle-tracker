@@ -15,6 +15,7 @@ function Plugin(options) {
   this.options = options || {};
   this.options.filename = this.options.filename || DEFAULT_OUTPUT_FILENAME;
   this.options.trackAssets = this.options.trackAssets || false;
+  this.options.forceGzip = this.options.forceGzip || false;
   this.options.assetsChunkName = this.options.assetsChunkName || DEFAULT_ASSET_CHUNK_NAME;
   if (this.options.logTime === undefined) {
     this.options.logTime = DEFAULT_LOG_TIME;
@@ -60,10 +61,10 @@ Plugin.prototype.apply = function(compiler) {
         var files = chunk.files.map(function(file){
           var F = {name: file};
           if (compiler.options.output.publicPath) {
-            F.publicPath = compiler.options.output.publicPath + file;
+            F.publicPath = compiler.options.output.publicPath + file + self.options.forceGzip ? ".gz" : "";
           }
           if (compiler.options.output.path) {
-            F.path = path.join(compiler.options.output.path, file);
+            F.path = path.join(compiler.options.output.path, file + self.options.forceGzip ? ".gz" : "");
           }
           return F;
         });
