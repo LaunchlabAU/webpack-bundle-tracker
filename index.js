@@ -59,7 +59,7 @@ Plugin.prototype.apply = function(compiler) {
       var chunks = {};
       stats.compilation.chunks.map(function(chunk){
         var files = chunk.files.map(function(file){
-          var F = {name: file};
+          var F = {name: file + (self.options.forceGzip ? ".gz" : "")};
           if (compiler.options.output.publicPath) {
             F.publicPath = compiler.options.output.publicPath + file + (self.options.forceGzip ? ".gz" : "");
           }
